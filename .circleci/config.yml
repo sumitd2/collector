@@ -495,9 +495,9 @@ jobs:
     - restore_cache:
         name: Restore collector build cache
         keys: 
-          - collector-build-cache-{{ checksum "$COLLECTOR_SOURCE_ROOT/CMakeLists.txt" }}-{{ .Branch }}-{{ .Revision }}
-          - collector-build-cache-{{ checksum "$COLLECTOR_SOURCE_ROOT/CMakeLists.txt" }}-{{ .Branch }}-
-          - collector-build-cache-{{ checksum "$COLLECTOR_SOURCE_ROOT/CMakeLists.txt" }}-master-
+          - collector-build-cache-{{ checksum "go/src/github.com/stackrox/collector/collector/CMakeLists.txt" }}-{{ .Branch }}-{{ .Revision }}
+          - collector-build-cache-{{ checksum "go/src/github.com/stackrox/collector/collector/CMakeLists.txt" }}-{{ .Branch }}-
+          - collector-build-cache-{{ checksum "go/src/github.com/stackrox/collector/collector/CMakeLists.txt" }}-master-
 
     - run:
         name: Sanity Check
@@ -532,7 +532,7 @@ jobs:
 
     - save_cache:
         name: Saving collector build cache
-        key: collector-build-cache-{{ checksum "$COLLECTOR_SOURCE_ROOT/CMakeLists.txt" }}-{{ .Branch }}-{{ .Revision }}
+        key: collector-build-cache-{{ checksum "go/src/github.com/stackrox/collector/collector/CMakeLists.txt" }}-{{ .Branch }}-{{ .Revision }}
         paths:
           - $COLLECTOR_SOURCE_ROOT/cmake-build/
           - $COLLECTOR_SOURCE_ROOT/generated/
