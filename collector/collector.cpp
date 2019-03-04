@@ -329,6 +329,7 @@ int main(int argc, char **argv) {
     if (!verifyProbeConfiguration()) {
       CLOG(FATAL) << "Error verifying ebpf configuration. Aborting...";
     }
+    CLOG(INFO) << "config verified";
   } else {
     // First action: drop all capabilities except for SYS_MODULE (inserting the module), SYS_PTRACE (reading from /proc),
     // and DAC_OVERRIDE (opening the device files with O_RDWR regardless of actual permissions).
