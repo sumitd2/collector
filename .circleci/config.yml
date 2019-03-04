@@ -492,6 +492,13 @@ jobs:
         name: Restore collector-builder cache image
         command: docker pull "stackrox/collector-builder:circle-build-${CIRCLE_WORKFLOW_ID}"
 
+    - restore_cache:
+        name: Restore collector build cache
+        keys: 
+          - collector-build-cache-{{ checksum "$COLLECTOR_SOURCE_ROOT/CMakeLists.txt" }}-{{ .Branch }}-{{ .Revision }}
+          - collector-build-cache-{{ checksum "$COLLECTOR_SOURCE_ROOT/CMakeLists.txt" }}-{{ .Branch }}-
+          - collector-build-cache-{{ checksum "$COLLECTOR_SOURCE_ROOT/CMakeLists.txt" }}-master-
+
     - run:
         name: Sanity Check
         command: |
@@ -522,6 +529,13 @@ jobs:
             -v "$PWD/sysdig/src/driver/ppm_fillers.h:/usr/local/include/ppm_fillers.h:ro" \
             -v "$PWD/cmake-build:/build-output" \
             --name build "stackrox/collector-builder:circle-build-${CIRCLE_WORKFLOW_ID}"
+
+    - save_cache:
+        name: Saving collector build cache
+        key: collector-build-cache-{{ checksum "$COLLECTOR_SOURCE_ROOT/CMakeLists.txt" }}-{{ .Branch }}-{{ .Revision }}
+        paths:
+          - $COLLECTOR_SOURCE_ROOT/cmake-build/
+          - $COLLECTOR_SOURCE_ROOT/generated/
 
     - run:
         name: Extract collector files
