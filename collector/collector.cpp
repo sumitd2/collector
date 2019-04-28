@@ -206,8 +206,9 @@ bool verifyProbeConfiguration() {
     }
 
     if (major_num < 4 || (major_num == 4 && minor_num < 14)) {
-        CLOG(ERROR) << "eBPF not supported on kernel version " << major_num << "." << minor_num;
-        return false;
+        //CLOG(ERROR) << "eBPF not supported on kernel version " << major_num << "." << minor_num;
+        //return false;
+        CLOG(WARNING) << "eBPF may not be not supported on kernel version " << major_num << "." << minor_num;
     }
     CLOG(INFO) << "eBPF supported on kernel version " << major_num << "." << minor_num;
     return true;

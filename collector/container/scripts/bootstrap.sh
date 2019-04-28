@@ -97,7 +97,8 @@ function find_kernel_object() {
 function kernel_supports_ebpf() {
     # Kernel version >= 4.14
     if [[ $KERNEL_MAJOR -lt 4 || ( $KERNEL_MAJOR -eq 4 && $KERNEL_MINOR -lt 14 ) ]]; then
-        return 1
+        echo "WARNING: kernel ${KERNEL_MAJOR}.${KERNEL_MINOR} may not fully support eBPF" >&2
+#        return 1
     fi
     return 0
 }
