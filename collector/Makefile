@@ -97,18 +97,17 @@ distribution: clean
 			-czvf \
 			collector.tar.gz ./
 
+ifeq ($(shell uname -s),Linux)
 .PHONY: integration-tests
 integration-tests:
 	@echo "+ $@"
 	make -C ../integration-tests clean-deps deps
 	ROX_COLLECTOR_EBPF=false go test -count=1 -v ../integration-tests/... 2>&1 | tee integration-test.log
-
 .PHONY: integration-tests-ebpf
 integration-tests-ebpf:
 	@echo "+ $@"
 	make -C ../integration-tests clean-deps deps
 	ROX_COLLECTOR_EBPF=true go test -count=1 -v ../integration-tests/... 2>&1 | tee integration-test.log
-
 .PHONY: integration-test-report
 integration-test-report:
 	@echo "+ $@"
@@ -124,6 +123,17 @@ integration-test-report:
 	@-grep 'FAIL    github.com/stackrox/collector' integration-test.log || true
 	@echo
 	@testerror="$$(grep -e 'Unable to deploy' -e 'FAIL:' integration-test.log | wc -l)" && test $$testerror -eq 0
+else
+.PHONY: integration-tests
+integration-tests:
+	@echo "integration-tests disabled on $(shell uname -s)"
+.PHONY: integration-tests-ebpf
+integration-tests-ebpf:
+	@echo "integration-tests-ebpf disabled on $(shell uname -s)"
+.PHONY: integration-test-report
+integration-test-report:
+	@echo "integration-test-report disabled on $(shell uname -s)"
+endif
 
 GENERATED_CPP_BASE_PATH := $(CURDIR)/generated
 
