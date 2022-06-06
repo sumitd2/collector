@@ -1,4 +1,4 @@
-FROM fc36-builder AS patcher
+FROM fc36-builder:latest AS patcher
 
 ARG BRANCH=mauro-OSCI-driver-builds
 ARG LEGACY_PROBES=false
