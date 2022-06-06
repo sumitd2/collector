@@ -1,8 +1,8 @@
 FROM registry.access.redhat.com/ubi8/ubi:8.6 AS rhel-8-base
 
 RUN dnf config-manager \
-		--enable rhel-8-for-x86_64-baseos-rpms \
-		--enable rhel-8-for-x86_64-appstream-rpms && \
+		--enable rhel-8-baseos \
+		--enable rhel-8-appstream && \
 	dnf -y update && \
 	dnf -y install \
 		make \
