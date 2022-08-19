@@ -43,6 +43,6 @@ ENTRYPOINT ["/scripts/run-tool.sh"]
 #
 FROM base AS perf
 
-RUN apk fix --update perf
+RUN apk fix perf
 
 ENTRYPOINT ["/scripts/run-tool.sh", "perf"]
