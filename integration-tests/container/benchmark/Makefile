@@ -14,7 +14,7 @@ endif
 .PHONY: all
 all:
 ifdef BUILD_UPLOAD_MULTIARCH_IMAGES
-	@docker buildx build --push --platform=linux/ppc64le,linux/amd64 -f Dockerfile -t quay.io/rhacs-eng/collector-performance:$(COLLECTOR_QA_BENCHMARK_TAG) .
+	@docker buildx build --push --platform=linux/ppc64le,linux/amd64 -f Dockerfile -t sumitdubey/collector-performance:$(COLLECTOR_QA_BENCHMARK_TAG) .
 else
 	@docker build --build-arg TARGETARCH=${TARGETARCH} -f Dockerfile -t quay.io/rhacs-eng/collector-performance:$(COLLECTOR_QA_BENCHMARK_TAG) .
 endif

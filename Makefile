@@ -26,10 +26,10 @@ builder:
 ifdef BUILD_BUILDER_IMAGE
 ifdef BUILD_UPLOAD_MULTIARCH_IMAGES
 	docker buildx build --push \
-		--cache-from quay.io/stackrox-io/collector-builder:cache \
-		--cache-from quay.io/stackrox-io/collector-builder:$(COLLECTOR_BUILDER_TAG) \
+		--cache-from sumitdubey/collector-builder:cache \
+		--cache-from sumitdubey//collector-builder:$(COLLECTOR_BUILDER_TAG) \
 		--platform=linux/ppc64le,linux/amd64 \
-		-t quay.io/stackrox-io/collector-builder:$(COLLECTOR_BUILDER_TAG) \
+		-t sumitdubey//collector-builder:$(COLLECTOR_BUILDER_TAG) \
 		-f "$(CURDIR)/builder/Dockerfile" \
 		.
 else
@@ -75,7 +75,7 @@ ifdef BUILD_UPLOAD_MULTIARCH_IMAGES
 		--build-arg module_version="$(shell cat $(MOD_VER_FILE))" \
 		--platform=linux/ppc64le,linux/amd64 \
 		-f collector/container/Dockerfile.gen \
-		-t quay.io/stackrox-io/collector:$(COLLECTOR_TAG) \
+		-t sumitdubey/collector:$(COLLECTOR_TAG) \
 		$(COLLECTOR_BUILD_CONTEXT)
 else
 	docker build --build-arg collector_version="$(COLLECTOR_TAG)" \
@@ -95,7 +95,7 @@ ifdef BUILD_UPLOAD_MULTIARCH_IMAGES
 		--build-arg BASE_TAG=stream8 \
 		--platform=linux/ppc64le,linux/amd64 \
 		-f collector/container/Dockerfile.gen \
-		-t quay.io/stackrox-io/collector:$(COLLECTOR_TAG) \
+		-t sumitdubey/collector:$(COLLECTOR_TAG) \
 		$(COLLECTOR_BUILD_CONTEXT)
 else
 	docker build --build-arg collector_version="$(COLLECTOR_TAG)" \
@@ -113,8 +113,8 @@ image-dev-full: image-dev build-drivers
 ifdef BUILD_UPLOAD_MULTIARCH_IMAGES
 	docker buildx build --push \
 		--target=probe-layer-1 \
-		--tag quay.io/stackrox-io/collector:$(COLLECTOR_TAG)-full \
-		--build-arg collector_repo=quay.io/stackrox-io/collector \
+		--tag sumitdubey/collector:$(COLLECTOR_TAG)-full \
+		--build-arg collector_repo=sumitdubey/collector \
 		--build-arg collector_version=$(COLLECTOR_TAG) \
 		--build-arg module_version=$(shell cat $(CURDIR)/kernel-modules/MODULE_VERSION) \
 		--build-arg max_layer_size=300 \
@@ -215,7 +215,7 @@ shellcheck-all:
 .PHONY: shellcheck-all-dockerized
 shellcheck-all-dockerized:
 ifdef BUILD_UPLOAD_MULTIARCH_IMAGES
-	docker buildx build --push --platform=linux/ppc64le,linux/amd64 -f Dockerfile -t quay.io/stackrox-io/shellcheck-all $(CURDIR)/utilities/shellcheck-all
+	docker buildx build --push --platform=linux/ppc64le,linux/amd64 -f Dockerfile -t sumitdubey/shellcheck-all $(CURDIR)/utilities/shellcheck-all
 else
 	docker build -f Dockerfile -t quay.io/stackrox-io/shellcheck-all $(CURDIR)/utilities/shellcheck-all
 endif
