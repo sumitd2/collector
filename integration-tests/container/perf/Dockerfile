@@ -32,7 +32,7 @@ CMD ["/scripts/init.sh"]
 #
 FROM base AS bcc
 
-RUN apk --no-cache add bcc-tools && \
+RUN apk fix && apk --no-cache add bcc-tools && \
     ln -s /usr/bin/python3 /usr/bin/python
 
 ENV PATH=/bin:/usr/bin:/usr/share/bcc/tools:/tools
