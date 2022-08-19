@@ -72,7 +72,7 @@ func (b *BenchmarkTestSuiteBase) StartPerfContainer(name string, image string, a
 }
 
 func (b *BenchmarkTestSuiteBase) RunInitContainer() {
-	init_image := qaImage("quay.io/rhacs-eng/collector-performance", "init")
+	init_image := qaImage("sumitdubey/collector-performance", "init")
 	cmd := []string{
 		"host-init",
 		"-v", "/lib/modules:/lib/modules",

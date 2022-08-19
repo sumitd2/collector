@@ -708,7 +708,7 @@ func (s *IntegrationTestSuiteBase) GetLineageInfo(processName string, key string
 
 func (s *IntegrationTestSuiteBase) RunCollectorBenchmark() {
 	benchmarkName := "benchmark"
-	benchmarkImage := qaImage("quay.io/rhacs-eng/collector-performance", "phoronix");
+	benchmarkImage := qaImage("sumitdubey/collector-performance", "phoronix");
 
 	err := s.executor.PullImage(benchmarkImage)
 	s.Require().NoError(err)
@@ -757,7 +757,7 @@ func (s *IntegrationTestSuiteBase) RunImageWithJSONLabels() {
 
 func (s *IntegrationTestSuiteBase) StartContainerStats() {
 	name := "container-stats"
-	image := qaImage("quay.io/rhacs-eng/collector-performance", "stats");
+	image := qaImage("sumitdubey/collector-performance", "stats");
 	args := []string{name, "-v", "/var/run/docker.sock:/var/run/docker.sock", image}
 
 	err := s.executor.PullImage(image)
