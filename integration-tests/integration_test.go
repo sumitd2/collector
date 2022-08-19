@@ -427,7 +427,7 @@ func (s *RepeatedNetworkFlowTestSuite) SetupSuite() {
 	err = s.collector.Launch()
 	s.Require().NoError(err)
 
-	scheduled_curls_image := qaImage("quay.io/rhacs-eng/qa", "collector-schedule-curls");
+	scheduled_curls_image := qaImage("sumitdubey/qa", "collector-schedule-curls");
 
 	images := []string{
 		"nginx:1.14-alpine",
@@ -742,7 +742,7 @@ func (s *IntegrationTestSuiteBase) RunCollectorBenchmark() {
 
 func (s *IntegrationTestSuiteBase) RunImageWithJSONLabels() {
 	name := "jsonlabel"
-	image := qaImage("quay.io/rhacs-eng/collector-performance", "json-label");
+	image := qaImage("sumitdubey/collector-performance", "json-label");
 	err := s.executor.PullImage(image)
 	s.Require().NoError(err)
 	args := []string{

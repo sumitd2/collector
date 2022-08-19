@@ -50,17 +50,17 @@ func (b *BenchmarkTestSuiteBase) StartPerfTools() {
 	}
 
 	if perf != "" {
-		perf_image := qaImage("quay.io/rhacs-eng/collector-performance", "perf")
+		perf_image := qaImage("sumitdubey/collector-performance", "perf")
 		b.StartPerfContainer("perf", perf_image, perf)
 	}
 
 	if bpftrace != "" {
-		bpftrace_image := qaImage("quay.io/rhacs-eng/collector-performance", "bpftrace")
+		bpftrace_image := qaImage("sumitdubey/collector-performance", "bpftrace")
 		b.StartPerfContainer("bpftrace", bpftrace_image, bpftrace)
 	}
 
 	if bcc != "" {
-		bcc_image := qaImage("quay.io/rhacs-eng/collector-performance", "bcc")
+		bcc_image := qaImage("sumitdubey/collector-performance", "bcc")
 		b.StartPerfContainer("bcc", bcc_image, bcc)
 	}
 }
