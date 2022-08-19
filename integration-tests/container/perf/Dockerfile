@@ -32,7 +32,7 @@ CMD ["/scripts/init.sh"]
 #
 FROM base AS bcc
 
-RUN apk --no-cache add --update bcc-tools && \
+RUN apk --no-cache add bcc-tools && \
     ln -s /usr/bin/python3 /usr/bin/python
 
 ENV PATH=/bin:/usr/bin:/usr/share/bcc/tools:/tools
@@ -43,6 +43,6 @@ ENTRYPOINT ["/scripts/run-tool.sh"]
 #
 FROM base AS perf
 
-RUN apk --no-cache add --update perf
+RUN apk --no-cache add perf
 
 ENTRYPOINT ["/scripts/run-tool.sh", "perf"]
