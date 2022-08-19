@@ -14,8 +14,8 @@ ENV NEEDRESTART_MODE=a
 ENV DEBIAN_PRIORITY=critical
 
 # Needed by the hackbench benchmark
-RUN apt-get -qy clean && apt-get -qy update && \
-    apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade && \
-    apt-get install -y icecc
+#RUN apt-get -qy clean && apt-get -qy update && \
+#    apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade && \
+RUN apt-get install -y icecc
 
 ENTRYPOINT ["/phoronix-test-suite/phoronix-test-suite"]
