@@ -1,5 +1,11 @@
 # Declare TARGETARCH to make it available
+ARG TARGETARCH
+
 FROM --platform=linux/amd64 phoronix/pts as stage-amd64
+RUN apt clean && apt autoclean && apt update
+
+FROM --platform=linux/amd64 phoronix/pts as stage-x86_64
+
 FROM --platform=linux/ppc64le sumitdubey/phoronix-pts-ppc64le as stage-ppc64le
 
 # Select final stage based on TARGETARCH ARG
@@ -16,6 +22,6 @@ ENV DEBIAN_PRIORITY=critical
 # Needed by the hackbench benchmark
 #RUN apt-get -qy clean && apt-get -qy update && \
 #    apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade && \
-RUN apt-get install -y icecc
+RUN apt clean && apt autoclean && apt update && apt-get install -y icecc
 
 ENTRYPOINT ["/phoronix-test-suite/phoronix-test-suite"]
