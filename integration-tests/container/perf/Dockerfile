@@ -1,4 +1,4 @@
-FROM alpine:3.13 AS base
+FROM alpine:latest AS base
 
 RUN apk add --update \
     bash \
@@ -43,6 +43,6 @@ ENTRYPOINT ["/scripts/run-tool.sh"]
 #
 FROM base AS perf
 
-RUN apk add --update perf
+RUN apk fix --update perf
 
 ENTRYPOINT ["/scripts/run-tool.sh", "perf"]
