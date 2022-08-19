@@ -12,7 +12,7 @@ ADD suite-definition.xml/ /var/lib/phoronix-test-suite/test-suites/local/collect
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Needed by the hackbench benchmark
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get install -y icecc
 
 ENTRYPOINT ["/phoronix-test-suite/phoronix-test-suite"]
