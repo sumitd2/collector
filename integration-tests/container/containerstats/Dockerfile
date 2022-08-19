@@ -1,5 +1,5 @@
 # Declare TARGETARCH to make it available
-ARG TARGETARCH
+ARG TARGETARCH=${TARGETARCH}
 
 FROM --platform=linux/amd64 docker:dind as stage-amd64
 FROM --platform=linux/amd64 docker:dind as stage-x86_64

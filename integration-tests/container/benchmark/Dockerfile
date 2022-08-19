@@ -1,8 +1,8 @@
 # Declare TARGETARCH to make it available
-ARG TARGETARCH
+ARG TARGETARCH=${TARGETARCH}
 
 FROM --platform=linux/amd64 phoronix/pts as stage-amd64
-RUN apt clean && apt autoclean && apt update
+RUN dpkg --configure -a && apt clean && apt autoclean && apt update
 
 FROM --platform=linux/amd64 phoronix/pts as stage-x86_64
 
