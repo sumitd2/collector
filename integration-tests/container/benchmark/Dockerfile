@@ -10,9 +10,12 @@ ADD phoronix-test-suite.xml /etc/phoronix-test-suite.xml
 ADD suite-definition.xml/ /var/lib/phoronix-test-suite/test-suites/local/collector/
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV NEEDRESTART_MODE=a
+ENV DEBIAN_PRIORITY=critical
 
 # Needed by the hackbench benchmark
-RUN apt-get update -y && \
+RUN apt-get -qy clean && apt-get -qy update && \
+    apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade && \
     apt-get install -y icecc
 
 ENTRYPOINT ["/phoronix-test-suite/phoronix-test-suite"]
